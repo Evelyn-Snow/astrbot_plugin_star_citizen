@@ -1,0 +1,10 @@
+name: astrbot_plugin_star_citizen
+display_name: 星际公民数据
+desc: 查询星际公民飞船参数、商品参考价与各终端实时买卖价（数据源 UEX 公开 API）
+help: 直接问「北极星号参数」「农业素现在多少钱」「Agricium 卖哪里最赚」
+version: v0.1.2
+repo: https://github.com/Evelyn-Snow/astrbot_plugin_star_citizen
+author: Evelyn-Snow
+support_platforms:
+  - aiocqhttp
+  - webchat

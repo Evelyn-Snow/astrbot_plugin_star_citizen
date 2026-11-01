@@ -1,0 +1,14 @@
+{
+  "uex_base": {
+    "description": "UEX API 地址",
+    "type": "string",
+    "default": "https://api.uexcorp.space/2.0",
+    "hint": "星际公民数据源（uexcorp.space 公开 API v2），一般不用改"
+  },
+  "timeout": {
+    "description": "请求超时（秒）",
+    "type": "int",
+    "default": 25,
+    "hint": "UEX 偶尔较慢，超时后工具会返回失败提示，由模型委婉转告"
+  }
+}
