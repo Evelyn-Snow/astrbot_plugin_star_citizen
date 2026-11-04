@@ -1,4 +1,9 @@
 {
+  "enabled": {
+    "description": "启用星际公民数据查询",
+    "type": "bool",
+    "default": true
+  },
   "uex_base": {
     "description": "UEX API 地址",
     "type": "string",

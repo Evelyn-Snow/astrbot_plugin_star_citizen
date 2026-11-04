@@ -23,6 +23,10 @@ class StarCitizenData(Star):
         super().__init__(context)
         self.conf = config
         self._client: UEXClient | None = None
+        self._last_err = ""
+
+    def _enabled(self) -> bool:
+        return bool(self.conf.get("enabled", True))
 
     def _client_obj(self) -> UEXClient:
         if self._client is None:
@@ -33,6 +37,7 @@ class StarCitizenData(Star):
         return self._client
 
     async def _call(self, fn, *args):
+        self._last_err = ""
         try:
             return await asyncio.to_thread(fn, *args)
         except Exception as exc:
@@ -48,6 +53,8 @@ class StarCitizenData(Star):
         Args:
             ship_name(string): 飞船英文名或型号，例如 Polaris / Carrack / Cutlass Black
         """
+        if not self._enabled():
+            return "星际公民数据查询未启用。"
         client = self._client_obj()
         vehicle = await self._call(client.find_vehicle, ship_name)
         if not vehicle:
@@ -70,6 +77,8 @@ class StarCitizenData(Star):
         Args:
             commodity_name(string): 商品英文名，例如 Agricium / Quantainium / Medical Supplies
         """
+        if not self._enabled():
+            return "星际公民数据查询未启用。"
         client = self._client_obj()
         commodity = await self._call(client.find_commodity, commodity_name)
         if not commodity:
@@ -95,6 +104,8 @@ class StarCitizenData(Star):
             commodity_name(string): 商品英文名，例如 Agricium / Laranite / Medical Supplies
             limit(number): 买价最高和卖价最低各列出几个终端，默认 5
         """
+        if not self._enabled():
+            return "星际公民数据查询未启用。"
         client = self._client_obj()
         result = await self._call(
             client.commodity_prices, commodity_name, max(1, min(int(limit or 5), 10))
